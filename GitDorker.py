@@ -3,25 +3,7 @@
 # Credits: Modified GitHub Dorker using GitAPI and my personal compiled list of dorks across multiple resources. API Integration code borrowed and modified from Gwendal Le Coguic's scripts.
 # Author: Omar Bheda
 # Version: 1.1.2
-print("""
 
-
-  /$$$$$$  /$$   /$$           /$$$$$$$                      /$$                          
- /$$__  $$|__/  | $$          | $$__  $$                    | $$                          
-| $$  \__/ /$$ /$$$$$$        | $$  \ $$  /$$$$$$   /$$$$$$ | $$   /$$  /$$$$$$   /$$$$$$ 
-| $$ /$$$$| $$|_  $$_/        | $$  | $$ /$$__  $$ /$$__  $$| $$  /$$/ /$$__  $$ /$$__  $$
-| $$|_  $$| $$  | $$          | $$  | $$| $$  \ $$| $$  \__/| $$$$$$/ | $$$$$$$$| $$  \__/
-| $$  \ $$| $$  | $$ /$$      | $$  | $$| $$  | $$| $$      | $$_  $$ | $$_____/| $$      
-|  $$$$$$/| $$  |  $$$$/      | $$$$$$$/|  $$$$$$/| $$      | $$ \  $$|  $$$$$$$| $$      
- \______/ |__/   \___/        |_______/  \______/ |__/      |__/  \__/ \_______/|__/      
-
-
-Find GitHub secrets utilizing a vast list of GitHub dorks and the GitHub search api. The 
-purpose of this tool is to enumerate interesting users,repos, and files to provide an 
-easy to read overview of where a potential sensitive information exposure may reside.
-
-HELP: python3 GitDorker.py -h
-""")
 
 # IMPORTS
 import sys
@@ -152,19 +134,6 @@ def api_search(url):
         r = requests.get(url, headers=headers, timeout=10)
         json = r.json()
 
-        if stats_dict['n_current'] % 29 == 0:
-            for remaining in range(67, 0, -1):
-                sys.stdout.write("\r")
-                sys.stdout.write(colored(
-                    "\r[#] (-_-)zzZZ sleeping to avoid rate limits. GitDorker will resume soon | {:2d} seconds remaining.\r".format(
-                        remaining), "blue"))
-                sys.stdout.flush()
-                time.sleep(1)
-            print("")
-            sys.stdout.write(colored(
-                "\n[#] ٩(ˊᗜˋ*)و Sleeping Finished! GitDorker Is Wide Awake.\n Continuing Dorking Process............",
-                "green"))
-            sys.stdout.flush()
 
         if 'documentation_url' in json:
             print(colored("[-] error occurred: %s" % json['documentation_url'], 'red'))
